@@ -1,0 +1,42 @@
+要求に従い、追加する複数の関数をかけ。
+
+要求：
+    ControlSystemSimulation.pyに追加する関数を考えよ。
+    関数１：
+    output_data、pseudo_output_signal、sampling_rate、time_testを入力せよ。
+    sampling_rateでtime_test間のデータを解析せよ。
+    output_data、pseudo_output_signalをそれぞれ切り取ったデータからFFTで解析せよ。
+    FFTで得られた配列データについて、output_data、pseudo_output_signalでの結果の差のL2ノルムを返せ。
+    関数２：
+    複数のパターンが記録されたsystem_order、L2ノルム、の配列を入力せよ。
+    system_order、L2ノルムのデータを.csvファイルで保存せよ。
+    横軸：system_order、縦軸：L2ノルムのグラフを.pngで保存せよ。
+    保存するディレクトリは、
+            # Ensure the output directory exists
+        output_dir = './output'
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+    を参考にせよ。
+    可読性の良いコードにせよ。
+    変数名をわかりやすくせよ。
+    コメントは英語にせよ。
+
+ControlSystemSimulation.py：
+import numpy as np
+import scipy.linalg
+import control as ctrl
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import os
+import csv
+from ClassFiles.SRIMAlgorithm import SRIMAlgorithm
+from ClassFiles.PredictiveErrorMethod import PredictiveErrorMethod
+
+class ControlSystemSimulation:
+    def __init__(self, n, t_end=10, num_points=1000):
+        self.n = n
+        self.m = 1
+        self.r = 1
+        self.t = np.linspace(0, t_end, num_points)
+        self.Ts = self.t[1] - self.t[0]
+        print(f"Initialized ControlSystemSimulation class with t from 0 to {t_end} seconds and {num_points} points.")
